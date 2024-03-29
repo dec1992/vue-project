@@ -1,10 +1,12 @@
-import Vue from 'vue'
+import { createApp } from 'vue'
 import App from './App.vue'
-import { firestorePlugin } from 'vuefire'
+import { VueFire } from 'vuefire'
+import { firebaseApp } from './firebase'
 
 
-Vue.use(firestorePlugin)
 
-new Vue({
-    render: h => h(App),
-}).$mount('#app')
+const app = createApp(App)
+
+app.use(VueFire, { firebaseApp })
+
+app.mount('#app')
