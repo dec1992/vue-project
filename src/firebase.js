@@ -1,6 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { getDatabase } from "firebase/database";
-import { getAuth } from "firebase/auth";
+import { getAuth, signInAnonymously, onAuthStateChanged } from "firebase/auth";
 import { getStorage } from "firebase/storage";
 
 const firebaseConfig = {
@@ -12,10 +12,12 @@ const firebaseConfig = {
     appId: "1:914461601329:web:047a7d310c93dd062baf10"
 }
 
-console.log(initializeApp)
-
 export const firebaseApp = initializeApp(firebaseConfig)
 
 export const db = getDatabase(firebaseApp)
 export const auth = getAuth(firebaseApp)
 export const storage = getStorage(firebaseApp)
+export const anonSignIn = () => signInAnonymously(auth)
+export const onAuthChanged = (callback) => {
+    onAuthStateChanged(auth, (user) => callback?.(user))
+}
