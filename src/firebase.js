@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { getFirestore, collection, addDoc, query, where, getDocs } from "firebase/firestore";
+import { getFirestore, collection, addDoc, query, where } from "firebase/firestore";
 import { getAuth, signInAnonymously, onAuthStateChanged, signOut, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 import { getStorage } from "firebase/storage";
 
@@ -29,11 +29,4 @@ export const addChat = async (chat) => {
     await addDoc(chatsRef, chat)
 }
 
-export const getChatsByUid = async (uid) => {
-    const q = query(chatsRef, where("owner", "==", uid));
-
-    const querySnapshot = await getDocs(q);
-    return querySnapshot.docs.map((doc) => doc.data())
-}
-
-export { createUserWithEmailAndPassword, signInWithEmailAndPassword }
+export { createUserWithEmailAndPassword, signInWithEmailAndPassword, query, where }

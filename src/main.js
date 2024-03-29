@@ -4,8 +4,11 @@ import { VueFire } from 'vuefire'
 import { firebaseApp } from './firebase'
 import { createMemoryHistory, createRouter } from 'vue-router'
 import HomeComponent from './components/Home'
+import ChatRoom from './components/ChatRoom'
 
-const routes = [{ path: '/', component: HomeComponent }]
+const routes = [{ path: '/', component: HomeComponent }, {
+    path: '/chats/:id', component: ChatRoom, name: 'chat'
+}]
 
 const router = createRouter({
     history: createMemoryHistory(),

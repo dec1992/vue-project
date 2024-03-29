@@ -1,24 +1,25 @@
 <template>
   <div>
     <ul>
-      <li v-for="chat of chats" :key="chat.createdAt">{{ chat.createdAt }}</li>
+      <li v-for="chat of chats" :key="chat.id">
+        <router-link :to="{ name: 'chat', params: { id: chat.id } }">{{
+          chat.id
+        }}</router-link>
+      </li>
     </ul>
     <button @click="createChatRoom()">Create New Chat Room</button>
   </div>
 </template>
 
 <script>
-import { addChat, getChatsByUid } from "../firebase";
-import { ref } from "vue";
+import { addChat, chatsRef, query, where } from "../firebase";
+import { useCollection } from "vuefire";
 export default {
   name: "ChatList",
   setup(props) {
-    const chats = ref([]);
-    (async () => {
-      const res = await getChatsByUid(props.uid);
-      console.log(res);
-      chats.value = res;
-    })();
+    const chats = useCollection(
+      query(chatsRef, where("owner", "==", props.uid))
+    );
     return {
       chats,
     };
@@ -30,8 +31,6 @@ export default {
         owner: this.uid,
         members: [this.uid],
       });
-      const res = await getChatsByUid(this.uid);
-      this.chats = res;
     },
   },
   props: ["uid"],
