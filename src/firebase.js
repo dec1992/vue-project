@@ -1,6 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { getDatabase } from "firebase/database";
-import { getAuth, signInAnonymously, onAuthStateChanged, signOut } from "firebase/auth";
+import { getAuth, signInAnonymously, onAuthStateChanged, signOut, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 import { getStorage } from "firebase/storage";
 
 const firebaseConfig = {
@@ -22,3 +22,5 @@ export const onAuthChanged = (callback) => {
     onAuthStateChanged(auth, (user) => callback?.(user))
 }
 export const logOut = () => signOut(auth)
+
+export { createUserWithEmailAndPassword, signInWithEmailAndPassword }
