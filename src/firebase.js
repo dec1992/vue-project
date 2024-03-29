@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { getDatabase } from "firebase/database";
+import { getFirestore, collection, addDoc, query, where, getDocs } from "firebase/firestore";
 import { getAuth, signInAnonymously, onAuthStateChanged, signOut, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 import { getStorage } from "firebase/storage";
 
@@ -14,7 +14,7 @@ const firebaseConfig = {
 
 export const firebaseApp = initializeApp(firebaseConfig)
 
-export const db = getDatabase(firebaseApp)
+export const db = getFirestore(firebaseApp)
 export const auth = getAuth(firebaseApp)
 export const storage = getStorage(firebaseApp)
 export const anonSignIn = () => signInAnonymously(auth)
@@ -22,5 +22,18 @@ export const onAuthChanged = (callback) => {
     onAuthStateChanged(auth, (user) => callback?.(user))
 }
 export const logOut = () => signOut(auth)
+
+export const chatsRef = collection(db, 'chats')
+
+export const addChat = async (chat) => {
+    await addDoc(chatsRef, chat)
+}
+
+export const getChatsByUid = async (uid) => {
+    const q = query(chatsRef, where("owner", "==", uid));
+
+    const querySnapshot = await getDocs(q);
+    return querySnapshot.docs.map((doc) => doc.data())
+}
 
 export { createUserWithEmailAndPassword, signInWithEmailAndPassword }

@@ -5,6 +5,7 @@
       <template v-slot:user="{ user }">
         <div v-if="user">
           <UserProfile :user="user" />
+          <ChatList :uid="user.uid" />
         </div>
         <LoginComponent v-else />
       </template>
@@ -16,12 +17,14 @@
 import LoginComponent from "./Login.vue";
 import UserComponent from "./User.vue";
 import UserProfile from "./UserProfile.vue";
+import ChatList from "./ChatList.vue";
 export default {
   name: "HomeComponent",
   components: {
     LoginComponent,
     UserComponent,
     UserProfile,
+    ChatList,
   },
 };
 </script>
