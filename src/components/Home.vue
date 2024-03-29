@@ -3,7 +3,9 @@
     <h3>Home</h3>
     <UserComponent>
       <template v-slot:user="{ user }">
-        <div v-if="user">Logged-in as {{ user.uid }}</div>
+        <div v-if="user">
+          <UserProfile :user="user" />
+        </div>
         <LoginComponent v-else />
       </template>
     </UserComponent>
@@ -13,11 +15,13 @@
 <script>
 import LoginComponent from "./Login.vue";
 import UserComponent from "./User.vue";
+import UserProfile from "./UserProfile.vue";
 export default {
   name: "HomeComponent",
   components: {
     LoginComponent,
     UserComponent,
+    UserProfile,
   },
 };
 </script>
