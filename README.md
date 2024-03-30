@@ -1,24 +1,15 @@
 # example-vue-project
 
-## Project setup
-```
-yarn install
-```
+A simple chatroom app with realtime text and voice note messaging built in order to refresh my VueJS skills.
 
-### Compiles and hot-reloads for development
-```
-yarn serve
-```
+### Technologies
 
-### Compiles and minifies for production
-```
-yarn build
-```
+- VueJS
+- Vuefire
+- Vue-router
+- Firebase (auth, firestore, storage)
+- Bulma
 
-### Lints and fixes files
-```
-yarn lint
-```
+### Try it out!
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+https://vue-project-36c3a.web.app/
