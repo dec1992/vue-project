@@ -29,4 +29,10 @@ export const addChat = async (chat) => {
     await addDoc(chatsRef, chat)
 }
 
-export { createUserWithEmailAndPassword, signInWithEmailAndPassword, query, where }
+export const addMessageToChat = async (chatId, message) => {
+    console.log({ chatId, message })
+    const ref = await addDoc(collection(db, 'chats', chatId, 'messages'), message)
+    console.log(ref)
+}
+
+export { createUserWithEmailAndPassword, signInWithEmailAndPassword, query, where, collection }
