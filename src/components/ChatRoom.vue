@@ -29,13 +29,19 @@ import { db, addMessageToChat, collection } from "../firebase";
 import { useCollection } from "vuefire";
 import { ref, computed } from "vue";
 import { useRoute } from "vue-router";
+import { query } from "firebase/database";
+import { orderBy, limitToLast } from "firebase/firestore";
 
 const route = useRoute();
 const newMessageText = ref("");
 const loading = ref(false);
 const chatId = route.params.id;
 const contactSource = computed(() =>
-  collection(db, "chats", chatId, "messages")
+  query(
+    collection(db, "chats", chatId, "messages"),
+    orderBy("createdAt", "asc"),
+    limitToLast(10)
+  )
 );
 const messages = useCollection(contactSource);
 
