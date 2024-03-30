@@ -6,7 +6,7 @@ import { createMemoryHistory, createRouter } from 'vue-router'
 import HomeComponent from './components/Home'
 import ChatRoom from './components/ChatRoom'
 
-const routes = [{ path: '/', component: HomeComponent }, {
+const routes = [{ path: '/', component: HomeComponent, name: 'home' }, {
     path: '/chats/:id', component: ChatRoom, name: 'chat'
 }]
 

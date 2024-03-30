@@ -1,6 +1,10 @@
 <template>
   <main>
     <h3>Welcome to ChatRoom {{ chatId }}</h3>
+    <router-link class="button is-info is-fullwidth" :to="{ name: 'home' }">
+      Back
+    </router-link>
+    <hr />
     <UserComponent>
       <template #user="{ user }">
         <ul>
@@ -30,7 +34,7 @@
         <audio v-if="newAudio" :src="newAudioUrl" controls></audio>
         <hr />
         <button
-          :disabled="!newMessageText || loading"
+          :disabled="(!newMessageText && !newAudio) || loading"
           class="button is-success is-fullwidth"
           type="text"
           @click="addMessage(user.uid)"
