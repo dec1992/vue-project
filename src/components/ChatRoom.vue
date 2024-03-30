@@ -81,24 +81,24 @@ const contactSource = computed(() =>
 const messages = useCollection(contactSource);
 
 async function addMessage(uid) {
-  this.loading = true;
+  loading.value = true;
   await addMessageToChat(
-    this.chatId,
+    chatId,
     {
-      text: this.newMessageText,
+      text: newMessageText.value,
       sender: uid,
       createdAt: Date.now(),
     },
-    this.newAudio
+    newAudio.value
   );
 
-  this.loading = false;
-  this.newMessageText = "";
-  this.newAudio = null;
+  loading.value = false;
+  newMessageText.value = "";
+  newAudio.value = null;
 }
 
 async function record() {
-  this.newAudio = null;
+  newAudio.value = null;
   const stream = await navigator.mediaDevices.getUserMedia({
     audio: true,
     video: false,
@@ -106,23 +106,23 @@ async function record() {
 
   const options = { mimeType: "audio/webm" };
   const recordedChunks = [];
-  this.recorder = new MediaRecorder(stream, options);
-  this.recorder.addEventListener("dataavailable", (e) => {
+  recorder.value = new MediaRecorder(stream, options);
+  recorder.value.addEventListener("dataavailable", (e) => {
     if (e.data.size > 0) {
       recordedChunks.push(e.data);
     }
   });
 
-  this.recorder.addEventListener("stop", () => {
-    this.newAudio = new Blob(recordedChunks);
+  recorder.value.addEventListener("stop", () => {
+    newAudio.value = new Blob(recordedChunks);
   });
 
-  this.recorder.start();
+  recorder.value.start();
 }
 
 async function stop() {
-  this.recorder.stop();
-  this.recorder = null;
+  recorder.value.stop();
+  recorder.value = null;
 }
 </script>
 

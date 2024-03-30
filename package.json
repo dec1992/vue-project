@@ -1,5 +1,5 @@
 {
-  "name": "example-vue-project",
+  "name": "vue-chatroom",
   "version": "0.1.0",
   "private": true,
   "scripts": {
