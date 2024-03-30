@@ -1,9 +1,11 @@
 <template>
-  <main>
+  <div>
     <p>Logged in as {{ user.uid }}</p>
 
-    <button class="button is-info" @click="logOut()">Sign Out</button>
-  </main>
+    <button class="button is-info is-fullwidth" @click="logOut()">
+      Sign Out
+    </button>
+  </div>
 </template>
 
 <script>
