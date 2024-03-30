@@ -1,7 +1,10 @@
 <template>
   <div class="message" :class="{ 'from-user': owner }">
     {{ message.text }}
-    <br /><span class="sender">from UID {{ message.sender }}</span>
+    <br />
+    <audio v-if="message.audioUrl" controls :src="message.audioUrl"></audio
+    ><br />
+    <span class="sender">from UID {{ message.sender }}</span>
   </div>
 </template>
 
@@ -11,6 +14,7 @@ defineProps({
   message: {
     text: String,
     sender: String,
+    audioUrl: String,
   },
   owner: Boolean,
 });

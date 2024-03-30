@@ -1,7 +1,7 @@
 import { initializeApp } from "firebase/app";
-import { getFirestore, collection, addDoc, query, where, doc, updateDoc, arrayUnion } from "firebase/firestore";
+import { getFirestore, collection, addDoc, query, where, doc, updateDoc, arrayUnion, orderBy, limitToLast, setDoc } from "firebase/firestore";
 import { getAuth, signInAnonymously, onAuthStateChanged, signOut, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
-import { getStorage } from "firebase/storage";
+import { getStorage, uploadBytes, ref, getDownloadURL } from "firebase/storage";
 
 const firebaseConfig = {
     apiKey: "AIzaSyD8ZaFt0w-uAMzdv8GTHDLewRIEpeI6A5I",
@@ -29,10 +29,17 @@ export const addChat = async (chat) => {
     await addDoc(chatsRef, chat)
 }
 
-export const addMessageToChat = async (chatId, message) => {
-    console.log({ chatId, message })
-    const ref = await addDoc(collection(db, 'chats', chatId, 'messages'), message)
-    console.log(ref)
+export const addMessageToChat = async (chatId, message, audioBlob
+) => {
+    let audioUrl = null
+    const uniqueRef = Date.now().toString()
+    const messageRef = doc(db, 'chats', chatId, 'messages', uniqueRef)
+    if (audioBlob) {
+        const storageRef = ref(storage, `chats/${chatId}/${uniqueRef}.wav`);
+        const upload = await uploadBytes(storageRef, audioBlob)
+        audioUrl = await getDownloadURL(upload.ref)
+    }
+    await setDoc(messageRef, { ...message, audioUrl })
 }
 
 export const joinChatRoom = async (chatId, uid) => {
@@ -42,4 +49,4 @@ export const joinChatRoom = async (chatId, uid) => {
     })
 }
 
-export { createUserWithEmailAndPassword, signInWithEmailAndPassword, query, where, collection }
+export { createUserWithEmailAndPassword, signInWithEmailAndPassword, query, where, collection, orderBy, limitToLast }

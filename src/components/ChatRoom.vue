@@ -45,12 +45,17 @@
 <script setup>
 import UserComponent from "./User.vue";
 import ChatMessage from "./ChatMessage.vue";
-import { db, addMessageToChat, collection } from "../firebase";
+import {
+  db,
+  addMessageToChat,
+  collection,
+  query,
+  orderBy,
+  limitToLast,
+} from "../firebase";
 import { useCollection } from "vuefire";
 import { ref, computed } from "vue";
 import { useRoute } from "vue-router";
-import { query } from "firebase/database";
-import { orderBy, limitToLast } from "firebase/firestore";
 
 const route = useRoute();
 const newMessageText = ref("");
@@ -73,14 +78,19 @@ const messages = useCollection(contactSource);
 
 async function addMessage(uid) {
   this.loading = true;
-  await addMessageToChat(this.chatId, {
-    text: this.newMessageText,
-    sender: uid,
-    createdAt: Date.now(),
-  });
+  await addMessageToChat(
+    this.chatId,
+    {
+      text: this.newMessageText,
+      sender: uid,
+      createdAt: Date.now(),
+    },
+    this.newAudio
+  );
 
   this.loading = false;
   this.newMessageText = "";
+  this.newAudio = null;
 }
 
 async function record() {

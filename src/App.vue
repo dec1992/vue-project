@@ -1,8 +1,8 @@
 <template>
   <div id="app">
     <header>
-      <h1>Vue Voxer</h1>
-      <p>Realtime Voice Chat</p>
+      <h1>Vue Chatroom</h1>
+      <p>Realtime Text/Voice Chat</p>
     </header>
     <router-view></router-view>
   </div>
