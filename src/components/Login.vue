@@ -1,22 +1,25 @@
 <template>
   <aside class="section">
-    <h3>Sign in Anonymously</h3>
-    <button @click="anonSignIn()">Sign In</button>
-
-    <div v-if="newUser">
-      <h3>Sign Up for a New Account</h3>
+    <hr />
+    <h3 class="has-text-centered">Sign in Anonymously</h3>
+    <button class="button is-info is-fullwidth" @click="anonSignIn()">
+      Sign In
+    </button>
+    <hr />
+    <div class="login" v-if="newUser">
+      <h3 class="has-text-centered">Sign Up for a New Account</h3>
       <a href="#" @click="newUser = false">Returning User?</a>
     </div>
 
-    <div v-else>
-      <h3>Sign In with Email</h3>
+    <div class="login" v-else>
+      <h3 class="has-text-centered">Sign In with Email</h3>
       <a href="#" @click="newUser = true">New User?</a>
     </div>
 
-    <label for="email">Email</label><br />
-    <input v-model="email" placeholder="email" type="email" class="input" />
+    <label class="label marginTop" for="email">Email</label>
+    <input class="input" v-model="email" placeholder="email" type="email" />
 
-    <label for="password">Password</label><br />
+    <label class="label marginTop" for="password">Password</label>
     <input
       v-model="password"
       placeholder="password"
@@ -26,7 +29,7 @@
     <br />
 
     <button
-      class="button is-info"
+      class="button is-info is-fullwidth marginTop"
       :class="{ 'is-loading': loading }"
       @click="signInOrCreateUser()"
     >
@@ -75,3 +78,18 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+aside {
+  padding: 0;
+}
+.login {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.marginTop {
+  margin-top: 10px;
+}
+</style>

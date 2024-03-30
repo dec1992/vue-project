@@ -1,9 +1,9 @@
 <template>
-  <div>
-    Logged in as {{ user.uid }}
+  <main>
+    <p>Logged in as {{ user.uid }}</p>
 
-    <button @click="logOut()">Sign Out</button>
-  </div>
+    <button class="button is-info" @click="logOut()">Sign Out</button>
+  </main>
 </template>
 
 <script>
@@ -17,3 +17,11 @@ export default {
   props: ["user"],
 };
 </script>
+
+<style scoped>
+main {
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+}
+</style>

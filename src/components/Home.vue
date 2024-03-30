@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <main>
     <h3>Home</h3>
     <UserComponent>
       <template v-slot:user="{ user }">
@@ -10,7 +10,7 @@
         <LoginComponent v-else />
       </template>
     </UserComponent>
-  </div>
+  </main>
 </template>
 
 <script>
@@ -28,3 +28,9 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+main {
+  padding: 40px;
+}
+</style>

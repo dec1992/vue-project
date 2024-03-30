@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { getFirestore, collection, addDoc, query, where } from "firebase/firestore";
+import { getFirestore, collection, addDoc, query, where, doc, updateDoc, arrayUnion } from "firebase/firestore";
 import { getAuth, signInAnonymously, onAuthStateChanged, signOut, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 import { getStorage } from "firebase/storage";
 
@@ -33,6 +33,13 @@ export const addMessageToChat = async (chatId, message) => {
     console.log({ chatId, message })
     const ref = await addDoc(collection(db, 'chats', chatId, 'messages'), message)
     console.log(ref)
+}
+
+export const joinChatRoom = async (chatId, uid) => {
+    const chatRef = doc(db, 'chats', chatId)
+    await updateDoc(chatRef, {
+        members: arrayUnion(uid)
+    })
 }
 
 export { createUserWithEmailAndPassword, signInWithEmailAndPassword, query, where, collection }

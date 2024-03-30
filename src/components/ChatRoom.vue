@@ -1,5 +1,5 @@
 <template>
-  <main class="m-1">
+  <main>
     <h3>Welcome to ChatRoom {{ chatId }}</h3>
     <UserComponent>
       <template #user="{ user }">
